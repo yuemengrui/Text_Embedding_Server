@@ -21,9 +21,7 @@ def text_embedding():
 
     try:
         embeddings = text_embedding_model.encode(sentences)
-        embeddings = embeddings.tolist()
+        return jsonify(errcode=RET.OK, errmsg=error_map[RET.OK], data={'embeddings': [x.tolist() for x in embeddings]})
     except Exception as e:
         current_app.logger.error(str({'EXCEPTION': e}) + '\n')
-        embeddings = []
-
-    return jsonify(errcode=RET.OK, errmsg=error_map[RET.OK], data={'embeddings': embeddings})
+        return jsonify(errcode=RET.DATAERR, errmsg=error_map[RET.DATAERR])
