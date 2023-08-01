@@ -17,7 +17,7 @@ def text_embedding():
     sentences = json_data.get('sentences', [])
     text_split = json_data.get('text_split', 0)
 
-    current_app.logger.info(str({'sentences': sentences}) + '\n')
+    current_app.logger.info(str({'text_split': text_split, 'sentences': sentences}) + '\n')
 
     if not sentences:
         return jsonify(errcode=RET.PARAMERR, errmsg=error_map[RET.PARAMERR])
