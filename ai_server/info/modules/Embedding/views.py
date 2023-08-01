@@ -27,6 +27,7 @@ def text_embedding():
     for i in embedding_model_list:
         temp = {}
         try:
+
             if text_split == 0:
                 embeddings = i['embedding_model'].encode(sentences)
                 embeddings = [x.tolist() for x in embeddings]

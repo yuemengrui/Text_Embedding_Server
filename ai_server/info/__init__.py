@@ -35,10 +35,6 @@ app = Flask(__name__, static_folder='', static_url_path='')
 CORS(app)
 config_cls = config_dict['dev']
 app.config.from_object(config_cls)
-if not os.path.exists(app.config['TEMP_FILE_DIR']):
-    os.makedirs(app.config['TEMP_FILE_DIR'])
-if not os.path.exists(app.config['VS_ROOT_DIR']):
-    os.makedirs(app.config['VS_ROOT_DIR'])
 
 app.json.ensure_ascii = False
 
