@@ -4,11 +4,10 @@ import logging
 from config import config_dict
 from flask import Flask
 from flask_cors import CORS
+from copy import deepcopy
 from flask_limiter import Limiter
 from logging.handlers import TimedRotatingFileHandler
 from sentence_transformers import SentenceTransformer
-
-__all__ = ['app', 'limiter', 'text_embedding_model']
 
 
 def setup_logging(log_level):
@@ -53,8 +52,18 @@ else:
 
 limiter.init_app(app)
 
-text_embedding_model = SentenceTransformer(app.config['EMBEDDING_MODEL_NAME_OR_PATH'])
+embedding_model_list = []
+
+for d in deepcopy(app.config['EMBEDDING_MODEL_LIST']):
+    model_path = d.pop('model_path')
+    device = d.pop('device')
+
+    if model_path:
+        embedding_model = SentenceTransformer(model_name_or_path=model_path, device=device)
+
+        d.update({"embedding_model": embedding_model})
+        embedding_model_list.append(d)
+
 
 from info.modules.Embedding import embedding_blu
-
 app.register_blueprint(embedding_blu)

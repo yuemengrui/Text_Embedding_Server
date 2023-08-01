@@ -17,10 +17,27 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     """开发模式下的配置"""
-    DEBUG = logging.INFO
+    LOG_LEVEL = logging.INFO
 
-    EMBEDDING_MODEL_NAME_OR_PATH = ''
-    EMBEDDING_DEVICE = "cuda"
+    EMBEDDING_MODEL_LIST = [
+        {
+            "embedding_type": "text",
+            "model_name": "m3e-base",
+            "max_seq_length": 512,
+            "embedding_dim": 768,
+            "model_path": "",
+            "device": "cuda"
+        },
+        {
+            "embedding_type": "text",
+            "model_name": "text2vec-large-chinese",
+            "max_seq_length": 512,
+            "embedding_dim": 1024,
+            "model_path": "",
+            "device": "cuda"
+        }
+    ]
+
 
 
 class UatConfig(Config):
