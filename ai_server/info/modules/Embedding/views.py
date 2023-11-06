@@ -10,7 +10,7 @@ from info.utils.chinese_text_splitter import ChineseTextSplitter
 
 
 @embedding_blu.route('/ai/text/embedding', methods=['POST'])
-@limiter.limit("60 per minute", override_defaults=False)
+@limiter.limit("600 per minute", override_defaults=False)
 def text_embedding():
     data = request.get_data()
     json_data = json.loads(data.decode("utf-8"))

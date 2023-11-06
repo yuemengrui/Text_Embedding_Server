@@ -13,7 +13,7 @@ from sentence_transformers import SentenceTransformer
 def setup_logging(log_level):
     logging.basicConfig(level=log_level)
     # file_log_handler = RotatingFileHandler("logs/log", maxBytes=1024 * 1024 * 100, backupCount=10)
-    file_log_handler = TimedRotatingFileHandler("logs/log", when="MIDNIGHT", backupCount=30)
+    file_log_handler = TimedRotatingFileHandler("logs/log", when="MIDNIGHT", backupCount=30,encoding='utf-8')
     file_log_handler.suffix = "%Y-%m-%d.log"
     formatter = logging.Formatter('[%(asctime)s] %(levelname)s %(filename)s:%(lineno)d %(message)s')
     file_log_handler.setFormatter(formatter)
@@ -28,7 +28,7 @@ def api_limit_key_func():
 limiter = Limiter(
     key_func=api_limit_key_func,
     # 默认方案 每小时2000，每分钟100，适用于所有路线。如果想忽略此全局配置，方法上增加此注解@limiter.exempt
-    default_limits=["60 per minute"]
+    default_limits=["600 per minute"]
 )
 
 app = Flask(__name__, static_folder='', static_url_path='')
